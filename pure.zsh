@@ -134,8 +134,10 @@ prompt_pure_preprompt_render() {
 
 	type kube_ps1 &>/dev/null && preprompt_parts+=$(kube_ps1)
 
-	[[ -n $ENVIRONMENT ]] && [[ -n $SEED_CLUSTER ]] && [[ -z $CUSTOMER_CLUSTER ]] &&  preprompt_parts+="(%{%F{4}%}⎈ %{%f%}|%{%F{1}%}seed %{%f%}|%{%F{6}%} $ENVIRONMENT/$SEED_CLUSTER%{%f%})"
-	[[ -n $ENVIRONMENT ]] && [[ -n $SEED_CLUSTER ]] && [[ -n $CUSTOMER_CLUSTER ]] &&  preprompt_parts+="(%{%F{4}%}⎈ %{%f%}|%{%F{1}%}$CUSTOMER_CLUSTER/$CUSTOMER_CLUSTER_HUMAN_READABLE@$CUSTOMER_CLUSTER_K8S_VERSION %{%f%}|%{%F{6}%} $ENVIRONMENT/$SEED_CLUSTER%{%f%})"
+	[[ -n $ENVIRONMENT ]] && [[ -n $SEED_CLUSTER ]] && [[ -z $CUSTOMER_CLUSTER ]] &&  preprompt_parts+="(%{%F{4}%}␥ %{%f%}|%{%F{1}%}seed %{%f%}|%{%F{6}%} $ENVIRONMENT/$SEED_CLUSTER%{%f%})"
+	[[ -n $ENVIRONMENT ]] && [[ -n $SEED_CLUSTER ]] && [[ -n $CUSTOMER_CLUSTER ]] &&  preprompt_parts+="(%{%F{4}%}␥ %{%f%}|%{%F{1}%}$CUSTOMER_CLUSTER/$CUSTOMER_CLUSTER_HUMAN_READABLE#$CUSTOMER_CLUSTER_OWNER#$CUSTOMER_CLUSTER_K8S_VERSION %{%f%}|%{%F{6}%} $ENVIRONMENT/$SEED_CLUSTER%{%f%})"
+	[[ -n $OS_TENANT_NAME ]] && preprompt_parts+="(%{%F{1}%}❍ %{%f%}|%{%F{3}%}$OS_TENANT_NAME%{%f%})"
+	[[ -n $AWS_ACCESS_KEY_ID ]] && preprompt_parts+="(%{%F{1}%}A %{%f%}|%{%F{3}%}$AWS_ACCESS_KEY_ID%{%f%})"
 
 	local cleaned_ps1=$PROMPT
 	local -H MATCH MBEGIN MEND
